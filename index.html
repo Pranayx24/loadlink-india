@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LoadLink India | Logistics Platform</title>
+    <title>LoadLink India | Firebase Logistics</title>
     <meta name="description" content="Connect with drivers and load owners across India. Smart pricing, easy negotiation, and real-time job tracking.">
-    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -31,350 +29,88 @@
             --border-radius: 16px;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Outfit', sans-serif; background-color: var(--bg-light); color: var(--text-main); overflow-x: hidden; line-height: 1.6; }
 
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* --- Layout --- */
         .container {
-            max-width: 500px;
-            margin: 0 auto;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            background: var(--white);
-            box-shadow: 0 0 50px rgba(0,0,0,0.05);
+            max-width: 500px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column;
+            position: relative; background: var(--white); box-shadow: 0 0 50px rgba(0,0,0,0.05);
         }
 
-        /* --- Header & Top Nav --- */
-        header {
-            padding: 15px 20px;
-            background: var(--secondary);
-            color: var(--white);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
+        header { padding: 15px 20px; background: var(--secondary); color: var(--white); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+        .logo { font-weight: 700; font-size: 1.4rem; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo i { color: var(--primary); font-size: 1.6rem; }
+        .top-nav { display: flex; justify-content: space-between; gap: 5px; background: rgba(255,255,255,0.1); padding: 5px; border-radius: 12px; }
+        .top-nav-item { flex: 1; text-align: center; padding: 8px 5px; font-size: 0.8rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: var(--transition); color: rgba(255,255,255,0.7); white-space: nowrap; }
+        .top-nav-item i { display: block; font-size: 1rem; margin-bottom: 2px; }
+        .top-nav-item.active { background: var(--primary); color: var(--secondary); }
 
-        .header-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-
-        .logo {
-            font-weight: 700;
-            font-size: 1.4rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-
-        .logo i {
-            color: var(--primary);
-            font-size: 1.6rem;
-        }
-
-        .top-nav {
-            display: flex;
-            justify-content: space-between;
-            gap: 5px;
-            background: rgba(255,255,255,0.1);
-            padding: 5px;
-            border-radius: 12px;
-        }
-
-        .top-nav-item {
-            flex: 1;
-            text-align: center;
-            padding: 8px 5px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-            color: rgba(255,255,255,0.7);
-            white-space: nowrap;
-        }
-
-        .top-nav-item i {
-            display: block;
-            font-size: 1rem;
-            margin-bottom: 2px;
-        }
-
-        .top-nav-item.active {
-            background: var(--primary);
-            color: var(--secondary);
-        }
-
-        /* --- UI Components --- */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            gap: 8px;
-            text-decoration: none;
-            font-size: 0.95rem;
-            width: 100%;
-        }
-
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 20px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: var(--transition); border: none; gap: 8px; text-decoration: none; font-size: 0.95rem; width: 100%; }
         .btn-primary { background-color: var(--primary); color: var(--secondary); }
-        .btn-primary:hover { background-color: var(--primary-dark); }
+        .btn-primary:disabled { background-color: #ddd; cursor: not-allowed; }
         .btn-secondary { background-color: var(--secondary); color: var(--white); }
         .btn-outline { background-color: transparent; border: 2px solid var(--secondary); color: var(--secondary); }
         .btn-danger { background-color: #fff5f5; color: var(--accent-red); border: 1.5px solid var(--accent-red); }
-        .btn-success { background-color: var(--accent-green); color: var(--white); }
         .btn-whatsapp { background-color: #25D366; color: var(--white); }
+        .btn:active:not(:disabled) { transform: scale(0.98); }
 
-        .btn:active { transform: scale(0.98); }
+        .card { background: var(--white); border-radius: var(--border-radius); padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.05); position: relative; overflow: hidden; }
 
-        .card {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-bottom: 16px;
-            border: 1px solid rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* --- Views --- */
-        .view {
-            display: none;
-            padding: 20px;
-            animation: fadeIn 0.4s ease-out;
-            padding-bottom: 100px;
-        }
-
+        .view { display: none; padding: 20px; animation: fadeIn 0.4s ease-out; padding-bottom: 100px; }
         .view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- Login View --- */
-        .login-hero {
-            text-align: center;
-            padding: 40px 0;
-        }
-
-        .login-hero i {
-            font-size: 4rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        /* --- Form Elements --- */
         .form-group { margin-bottom: 18px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
-        .form-control {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: 1.5px solid #eee;
-            background: #fdfdfd;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: var(--transition);
-        }
+        .form-control { width: 100%; padding: 14px; border-radius: 12px; border: 1.5px solid #eee; background: #fdfdfd; font-size: 1rem; font-family: inherit; transition: var(--transition); }
         .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.1); }
 
         .vehicle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
-        .vehicle-option {
-            padding: 15px 5px;
-            border: 1.5px solid #eee;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
+        .vehicle-option { padding: 15px 5px; border: 1.5px solid #eee; border-radius: 12px; text-align: center; cursor: pointer; transition: var(--transition); }
         .vehicle-option.selected { border-color: var(--primary); background: rgba(255, 215, 0, 0.1); }
         .vehicle-option i { font-size: 1.4rem; display: block; margin-bottom: 5px; }
         .vehicle-option span { font-size: 0.75rem; font-weight: 600; }
 
-        /* --- Load Cards --- */
         .load-card { border-left: 6px solid var(--primary); }
         .load-card.status-accepted { border-left-color: var(--accent-green); }
         .load-card.status-completed { border-left-color: var(--accent-blue); opacity: 0.8; }
 
         .load-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .badge {
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
         .badge-pending { background: #fff3cd; color: #856404; }
         .badge-accepted { background: #d4edda; color: #155724; }
         .badge-completed { background: #cce5ff; color: #004085; }
 
         .route-path { position: relative; padding-left: 25px; margin-bottom: 15px; }
-        .route-path::before {
-            content: '';
-            position: absolute;
-            left: 7px;
-            top: 10px;
-            bottom: 10px;
-            width: 2px;
-            background: #eee;
-            border-left: 2px dashed #ddd;
-        }
+        .route-path::before { content: ''; position: absolute; left: 7px; top: 10px; bottom: 10px; width: 2px; background: #eee; border-left: 2px dashed #ddd; }
         .route-stop { position: relative; margin-bottom: 12px; font-weight: 600; font-size: 0.95rem; }
-        .route-stop::before {
-            content: '';
-            position: absolute;
-            left: -22px;
-            top: 6px;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #ddd;
-        }
+        .route-stop::before { content: ''; position: absolute; left: -22px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: #ddd; }
         .route-stop.pickup::before { background: var(--accent-red); box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2); }
         .route-stop.drop::before { background: var(--accent-green); box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2); }
 
         .load-info { display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; padding: 10px; background: #fbfbfb; border-radius: 10px; }
         .load-info item { display: flex; align-items: center; gap: 5px; }
 
-        .price-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 15px;
-            border-top: 1px solid #f0f0f0;
-        }
+        .price-box { display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid #f0f0f0; }
         .price-main { font-size: 1.3rem; font-weight: 700; color: var(--secondary); }
         .commission-tag { font-size: 0.7rem; color: var(--text-muted); background: #eee; padding: 2px 6px; border-radius: 4px; }
+        .negotiation-pill { background: #e3f2fd; padding: 10px; border-radius: 12px; margin-top: 10px; font-size: 0.85rem; border: 1px solid #bbdefb; }
 
-        .negotiation-pill {
-            background: #e3f2fd;
-            padding: 10px;
-            border-radius: 12px;
-            margin-top: 10px;
-            font-size: 0.85rem;
-            border: 1px solid #bbdefb;
-        }
+        .search-box { position: relative; margin-bottom: 20px; }
+        .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        .search-box input { padding-left: 40px; }
 
-        /* --- Filters --- */
-        .filter-bar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
-        .filter-item {
-            flex-shrink: 0;
-            padding: 8px 15px;
-            background: var(--white);
-            border: 1.5px solid #eee;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .filter-item.active { background: var(--secondary); color: var(--white); border-color: var(--secondary); }
-
-        /* --- Search Box --- */
-        .search-box {
-            position: relative;
-            margin-bottom: 20px;
-        }
-        .search-box i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-        .search-box input {
-            padding-left: 40px;
-        }
-
-        /* --- Modals --- */
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.73);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 20px;
-            backdrop-filter: blur(5px);
-        }
-        .modal {
-            background: var(--white);
-            border-radius: 24px;
-            width: 100%;
-            max-width: 400px;
-            padding: 30px;
-            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+        .overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.73); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px; backdrop-filter: blur(5px); }
+        .modal { background: var(--white); border-radius: 24px; width: 100%; max-width: 400px; padding: 30px; animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes modalPop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        /* --- Floating Action --- */
-        .fab {
-            position: fixed;
-            bottom: 30px;
-            right: calc(50% - 220px);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: var(--secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
-            cursor: pointer;
-            z-index: 900;
-            border: none;
-        }
-        @media (max-width: 500px) { .fab { right: 20px; } }
-
-        /* --- Animations --- */
         .pulse { animation: pulse-animation 2s infinite; }
         @keyframes pulse-animation { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-
-        .loading-shimmer {
-            background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-        }
-        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- TOP HEADER -->
     <header id="main-header" style="display: none;">
         <div class="header-top">
             <div class="logo" onclick="app.showPage('home')">
@@ -382,7 +118,7 @@
                 <span>LoadLink India</span>
             </div>
             <div id="user-badge" style="font-size: 0.75rem; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 20px;">
-                <i class="fas fa-user-circle"></i> <span id="user-name-display">Pranay</span>
+                <i class="fas fa-user-circle"></i> <span id="user-name-display">...</span>
             </div>
         </div>
         <nav class="top-nav">
@@ -403,150 +139,70 @@
 
     <!-- LOGIN VIEW -->
     <section id="login-view" class="view active">
-        <div class="login-hero">
-            <i class="fas fa-truck-moving pulse"></i>
-            <h1>Welcome to LoadLink</h1>
-            <p style="color: var(--text-muted)">India's Trusted Logistics Network</p>
+        <div style="text-align: center; padding: 40px 0;">
+            <i class="fas fa-truck-moving pulse" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+            <h1>Enter LoadLink</h1>
+            <p style="color: var(--text-muted)">Real-time logistics network</p>
         </div>
-        
         <div class="card" style="padding: 30px;">
-            <h3 style="margin-bottom: 20px; text-align: center;">Get Started</h3>
             <div class="form-group">
-                <label>Your Full Name</label>
-                <input type="text" id="login-name" class="form-control" placeholder="Enter name">
+                <label>Full Name</label>
+                <input type="text" id="login-name" class="form-control" placeholder="Your Name">
             </div>
             <div class="form-group">
                 <label>Phone Number</label>
                 <input type="tel" id="login-phone" class="form-control" placeholder="+91 XXXXX XXXXX">
             </div>
-            <div class="form-group">
-                <label>Identify As</label>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <button class="btn btn-outline" id="role-customer" onclick="app.selectRole('customer')">Customer</button>
-                    <button class="btn btn-outline" id="role-driver" onclick="app.selectRole('driver')">Driver</button>
-                </div>
-            </div>
-            <button class="btn btn-primary" onclick="app.handleLogin()" style="margin-top: 10px;">Continue <i class="fas fa-arrow-right"></i></button>
+            <button class="btn btn-primary" onclick="app.handleLogin()" style="margin-top: 10px;">Get Started</button>
         </div>
     </section>
 
     <!-- HOME VIEW -->
     <section id="home-view" class="view">
         <div style="padding: 20px 0; text-align: center;">
-            <h2 id="welcome-msg">Namaste, Pranay!</h2>
-            <p style="color: var(--text-muted)">What would you like to do today?</p>
+            <h2 id="welcome-msg">Welcome!</h2>
+            <p style="color: var(--text-muted)">Logistics powered by Firebase Firestore</p>
         </div>
-
         <div class="card" onclick="app.showPage('post')" style="cursor: pointer; background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);">
             <div style="display: flex; align-items: center; gap: 20px;">
                 <div style="background: var(--secondary); color: var(--white); width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
                     <i class="fas fa-box-open"></i>
                 </div>
-                <div>
-                    <h3 style="color: var(--secondary)">I Need to Move Goods</h3>
-                    <p style="color: rgba(0,0,0,0.6); font-size: 0.9rem;">Post a load and get instant bids</p>
-                </div>
+                <div><h3 style="color: var(--secondary)">Post a Load</h3><p style="color: rgba(0,0,0,0.6); font-size: 0.9rem;">Instantly visible to all drivers</p></div>
             </div>
         </div>
-
         <div class="card" onclick="app.showPage('find')" style="cursor: pointer; background: var(--secondary); color: var(--white);">
             <div style="display: flex; align-items: center; gap: 20px;">
                 <div style="background: var(--primary); color: var(--secondary); width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
-                    <i class="fas fa-shuttle-van"></i>
+                    <i class="fas fa-search"></i>
                 </div>
-                <div>
-                    <h3 style="color: var(--white)">I am Looking for Work</h3>
-                    <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Browse available loads near you</p>
-                </div>
+                <div><h3 style="color: var(--white)">Find Loads</h3><p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Browse real-time opportunities</p></div>
             </div>
-        </div>
-
-        <div class="upcoming-section" style="margin-top: 20px; padding: 20px; background: #f0f0f0; border-radius: 20px;">
-            <h4 style="margin-bottom: 10px;"><i class="fas fa-shield-halved"></i> Safety & Trust</h4>
-            <ul style="list-style: none; font-size: 0.85rem; color: var(--text-muted);">
-                <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: var(--accent-green)"></i> Verified Transporters</li>
-                <li style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color: var(--accent-green)"></i> Price Negotiation Transparency</li>
-                <li><i class="fas fa-check-circle" style="color: var(--accent-green)"></i> Secure Platform Handling</li>
-            </ul>
         </div>
     </section>
 
     <!-- POST LOAD VIEW -->
     <section id="post-view" class="view">
-        <h2 style="margin-bottom: 20px;">Post New Load</h2>
-        
+        <h2 style="margin-bottom: 20px;">Create New Post</h2>
         <div class="card">
-            <div class="form-group">
-                <label>Pickup Location</label>
-                <input type="text" id="pickup" class="form-control" placeholder="Village, City, or Hub">
-            </div>
-            <div class="form-group">
-                <label>Drop Location</label>
-                <input type="text" id="drop" class="form-control" placeholder="Destination City">
-            </div>
-            <div class="form-group">
-                <label>Goods Type</label>
-                <select id="goods-type" class="form-control">
-                    <option value="Furniture">Household Furniture</option>
-                    <option value="Electronics">Electronics & Appliances</option>
-                    <option value="Groceries">FMCG / Groceries</option>
-                    <option value="Construction">Construction Material</option>
-                    <option value="Industrial">Industrial Goods</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label>Vehicle Needed</label>
-                <div class="vehicle-grid">
-                    <div class="vehicle-option" onclick="app.selectVehicle(this, 'Bike', 50)">
-                        <i class="fas fa-motorcycle"></i>
-                        <span>Bike</span>
-                    </div>
-                    <div class="vehicle-option" onclick="app.selectVehicle(this, 'Mini Truck', 300)">
-                        <i class="fas fa-truck-pickup"></i>
-                        <span>Mini Truck</span>
-                    </div>
-                    <div class="vehicle-option" onclick="app.selectVehicle(this, 'Pickup', 600)">
-                        <i class="fas fa-truck"></i>
-                        <span>Pickup 8ft</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Expected Price (₹)</label>
-                <input type="number" id="expected-price" class="form-control" placeholder="Budgeted price (e.g. 1500)">
-            </div>
-            
-            <div class="form-group">
-                <label>Your Contact Number</label>
-                <input type="tel" id="post-phone" class="form-control" placeholder="Driver will call you here">
-            </div>
-
-            <button class="btn btn-primary" onclick="app.submitLoad()" id="submit-btn" style="height: 55px; font-size: 1.1rem;">Post Load Now </button>
+            <div class="form-group"><label>Pickup City</label><input type="text" id="pickup" class="form-control" placeholder="From where?"></div>
+            <div class="form-group"><label>Drop City</label><input type="text" id="drop" class="form-control" placeholder="To where?"></div>
+            <div class="form-group"><label>Goods Type</label><input type="text" id="goods-type" class="form-control" placeholder="e.g. Furniture, Steel"></div>
+            <div class="form-group"><label>Vehicle Type</label><div class="vehicle-grid">
+                <div class="vehicle-option" onclick="app.selectVehicle(this, 'Bike')"><i class="fas fa-motorcycle"></i><span>Bike</span></div>
+                <div class="vehicle-option" onclick="app.selectVehicle(this, 'Mini Truck')"><i class="fas fa-truck-pickup"></i><span>Mini Truck</span></div>
+                <div class="vehicle-option" onclick="app.selectVehicle(this, 'Pickup')"><i class="fas fa-truck"></i><span>Pickup</span></div>
+            </div></div>
+            <div class="form-group"><label>Expected Price (₹)</label><input type="number" id="price" class="form-control" placeholder="Your bid"></div>
+            <button class="btn btn-primary" onclick="app.postLoad()" id="submit-btn">Publish Load</button>
         </div>
     </section>
 
     <!-- FIND LOADS VIEW -->
     <section id="find-view" class="view">
-        <h2 style="margin-bottom: 15px;">Available Loads</h2>
-        
-        <div class="search-box">
-            <i class="fas fa-search"></i>
-            <input type="text" id="load-search" class="form-control" placeholder="Search by city or goods..." oninput="app.renderLoadsList()">
-        </div>
-
-        <div class="filter-bar">
-            <div class="filter-item active" onclick="app.setFilter('all', this)">All Vehicles</div>
-            <div class="filter-item" onclick="app.setFilter('Bike', this)">Bikes</div>
-            <div class="filter-item" onclick="app.setFilter('Mini Truck', this)">Mini Truck</div>
-            <div class="filter-item" onclick="app.setFilter('Pickup', this)">Pickup</div>
-        </div>
-
-        <div id="loads-container">
-            <!-- Loads will be injected here -->
-        </div>
+        <h2 style="margin-bottom: 15px;">Live Loads</h2>
+        <div class="search-box"><i class="fas fa-search"></i><input type="text" id="load-search" class="form-control" placeholder="Filter by city..." oninput="app.renderLoadsList()"></div>
+        <div id="loads-container"><div style="text-align: center; padding: 40px; color: #999;">Loading real-time data...</div></div>
     </section>
 
     <!-- DASHBOARD VIEW -->
@@ -555,113 +211,68 @@
             <h2>My Dashboard</h2>
             <button class="btn btn-outline" style="width: auto; padding: 5px 12px; font-size: 0.8rem;" onclick="app.logout()">Logout</button>
         </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
-            <div class="card" style="margin-bottom: 0; padding: 15px; text-align: center;">
-                <div id="count-posted" style="font-size: 1.5rem; font-weight: 700;">0</div>
-                <div style="font-size: 0.7rem; color: var(--text-muted);">Posted Loads</div>
-            </div>
-            <div class="card" style="margin-bottom: 0; padding: 15px; text-align: center;">
-                <div id="count-active" style="font-size: 1.5rem; font-weight: 700; color: var(--accent-green);">0</div>
-                <div style="font-size: 0.7rem; color: var(--text-muted);">Active Jobs</div>
-            </div>
-        </div>
-
         <div id="dashboard-sections">
-            <h4 style="margin: 20px 0 10px;">My Roles & Current Activity</h4>
-            <div id="dashboard-list">
-                <!-- User specific interactive items -->
-            </div>
+            <h4 style="margin: 10px 0;">My Loads (Customer)</h4>
+            <div id="customer-dashboard-list"></div>
+            <h4 style="margin: 20px 0 10px;">Accepted Jobs (Driver)</h4>
+            <div id="driver-dashboard-list"></div>
         </div>
     </section>
 </div>
 
 <!-- NEGOTIATE MODAL -->
-<div class="overlay" id="negotiate-overlay">
-    <div class="modal">
-        <h3 id="modal-title">Make an Offer</h3>
-        <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">
-            Customer's Price: <span id="modal-current-price" style="font-weight: 700; color: var(--secondary);"></span>
-        </p>
-        <div class="form-group">
-            <label>Your Offer (₹)</label>
-            <input type="number" id="negotiation-bid" class="form-control" placeholder="Enter amount">
-            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;">Platform fee (10%) will be applied.</p>
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <button class="btn btn-outline" onclick="app.closeNegotiation()">Cancel</button>
-            <button class="btn btn-secondary" onclick="app.submitNegotiation()">Submit Bid</button>
-        </div>
+<div class="overlay" id="negotiate-overlay"><div class="modal">
+    <h3>Submit Counter Offer</h3>
+    <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Current Price: <span id="modal-current-price" style="font-weight: 700;"></span></p>
+    <div class="form-group"><label>Your Price (₹)</label><input type="number" id="negotiation-bid" class="form-control"></div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <button class="btn btn-outline" onclick="app.closeNegotiation()">Cancel</button>
+        <button class="btn btn-secondary" onclick="app.submitNegotiation()">Confirm Bid</button>
     </div>
-</div>
+</div></div>
 
-<!-- EDIT MODAL (Simplified) -->
-<div class="overlay" id="edit-overlay">
-    <div class="modal">
-        <h3>Edit Load</h3>
-        <div class="form-group">
-            <label>Final Price (₹)</label>
-            <input type="number" id="edit-price" class="form-control">
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <button class="btn btn-outline" onclick="document.getElementById('edit-overlay').style.display='none'">Cancel</button>
-            <button class="btn btn-primary" onclick="app.saveEdit()">Update</button>
-        </div>
-    </div>
-</div>
+<!-- FIREBASE SDK Integration -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+    import { 
+        getFirestore, collection, addDoc, onSnapshot, query, where, 
+        orderBy, updateDoc, doc, deleteDoc, serverTimestamp 
+    } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-<script>
-    const app = {
-        user: null,
+    // --- YOUR ACTUAL CONFIG ---
+    const firebaseConfig = {
+      apiKey: "AIzaSyAYZYEBibD7hy_TzGIBsmRRF517_fnQgF4",
+      authDomain: "loadlink-india.firebaseapp.com",
+      projectId: "loadlink-india",
+      storageBucket: "loadlink-india.firebasestorage.app",
+      messagingSenderId: "625328932224",
+      appId: "1:625328932224:web:dd72c2fbbac080b5372d65"
+    };
+
+    const fbApp = initializeApp(firebaseConfig);
+    const db = getFirestore(fbApp);
+
+    window.app = {
+        user: JSON.parse(localStorage.getItem('loadlink_user_v2') || 'null'),
         loads: [],
         currentVehicle: null,
-        currentFilter: 'all',
-        editingId: null,
+        activeNegotiationId: null,
 
         init() {
-            console.log("LoadLink India v2 Initializing...");
-            this.loadData();
-            this.checkSession();
-        },
-
-        loadData() {
-            this.loads = JSON.parse(localStorage.getItem('loadlink_data_v2') || '[]');
-            this.user = JSON.parse(localStorage.getItem('loadlink_user_v2') || 'null');
-        },
-
-        saveData() {
-            localStorage.setItem('loadlink_data_v2', JSON.stringify(this.loads));
-            localStorage.setItem('loadlink_user_v2', JSON.stringify(this.user));
-        },
-
-        checkSession() {
             if (this.user) {
                 this.showMainApp();
-            } else {
-                this.showPage('login');
+                this.setupRealtimeSync();
             }
-        },
-
-        selectRole(role) {
-            document.getElementById('role-customer').classList.remove('btn-primary');
-            document.getElementById('role-driver').classList.remove('btn-primary');
-            document.getElementById('role-' + role).classList.add('btn-primary');
-            this.tempRole = role;
         },
 
         handleLogin() {
             const name = document.getElementById('login-name').value.trim();
             const phone = document.getElementById('login-phone').value.trim();
-            const role = this.tempRole || 'customer';
-
-            if (!name || !phone) {
-                alert("Please enter Name and Phone!");
-                return;
-            }
-
-            this.user = { name, phone, role };
-            this.saveData();
+            if (!name || !phone) return alert("Enter Name and Phone!");
+            this.user = { name, phone };
+            localStorage.setItem('loadlink_user_v2', JSON.stringify(this.user));
             this.showMainApp();
+            this.setupRealtimeSync();
             this.showPage('home');
         },
 
@@ -670,282 +281,108 @@
             document.getElementById('main-header').style.display = 'block';
             document.getElementById('user-name-display').innerText = this.user.name;
             document.getElementById('welcome-msg').innerText = `Namaste, ${this.user.name}!`;
-            document.getElementById('post-phone').value = this.user.phone;
         },
 
         showPage(pageId) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(pageId + '-view').classList.add('active');
-            
             document.querySelectorAll('.top-nav-item').forEach(v => v.classList.remove('active'));
-            const navItem = document.getElementById('nav-' + pageId);
-            if (navItem) navItem.classList.add('active');
-
-            if (pageId === 'find') this.renderLoadsList();
-            if (pageId === 'dashboard') this.renderDashboard();
+            const nav = document.getElementById('nav-' + pageId);
+            if (nav) nav.classList.add('active');
         },
 
-        selectVehicle(el, type, base) {
-            document.querySelectorAll('.vehicle-option').forEach(v => v.classList.remove('selected'));
+        selectVehicle(el, v) {
+            document.querySelectorAll('.vehicle-option').forEach(x => x.classList.remove('selected'));
             el.classList.add('selected');
-            this.currentVehicle = type;
+            this.currentVehicle = v;
         },
 
-        submitLoad() {
+        async postLoad() {
             const pickup = document.getElementById('pickup').value.trim();
             const drop = document.getElementById('drop').value.trim();
-            const goods = document.getElementById('goods-type').value;
-            const price = parseFloat(document.getElementById('expected-price').value);
-            const phone = document.getElementById('post-phone').value;
-
-            if (!pickup || !drop || !price || !this.currentVehicle) {
-                alert("Missing fields!");
-                return;
-            }
-
-            const newLoad = {
-                id: Date.now(),
-                ownerName: this.user.name,
-                ownerPhone: phone,
-                pickup,
-                drop,
-                goods,
-                vehicle: this.currentVehicle,
-                price: price,
-                status: 'pending', // pending, accepted, completed
-                driverOffer: null,
-                driverName: null,
-                driverPhone: null,
-                createdAt: new Date().toISOString()
-            };
-
-            this.loads.unshift(newLoad);
-            this.saveData();
-            
-            alert("Success! Load is now live.");
-            this.showPage('find');
-
-            // Reset form
-            document.getElementById('pickup').value = '';
-            document.getElementById('drop').value = '';
-            document.getElementById('expected-price').value = '';
+            const goods = document.getElementById('goods-type').value.trim();
+            const price = parseFloat(document.getElementById('price').value);
+            if (!pickup || !drop || !price || !this.currentVehicle) return alert("Fill all fields!");
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true; btn.innerText = "Posting...";
+            try {
+                await addDoc(collection(db, "loads"), {
+                    pickup, drop, goodsType: goods, vehicleType: this.currentVehicle, price,
+                    phone: this.user.phone, ownerName: this.user.name, status: 'pending',
+                    createdAt: serverTimestamp()
+                });
+                alert("Load posted successfully!");
+                this.showPage('find');
+                document.getElementById('pickup').value = ''; document.getElementById('drop').value = ''; document.getElementById('price').value = '';
+            } catch (e) { alert("Error posting load."); } finally { btn.disabled = false; btn.innerText = "Publish Load"; }
         },
 
-        setFilter(filter, el) {
-            this.currentFilter = filter;
-            document.querySelectorAll('.filter-item').forEach(v => v.classList.remove('active'));
-            el.classList.add('active');
-            this.renderLoadsList();
+        setupRealtimeSync() {
+            const q = query(collection(db, "loads"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                this.loads = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                this.renderLoadsList();
+                this.renderDashboard();
+            });
         },
 
         renderLoadsList() {
             const container = document.getElementById('loads-container');
             const search = document.getElementById('load-search').value.toLowerCase();
-            
-            let filtered = this.loads.filter(l => l.status === 'pending');
-
-            if (this.currentFilter !== 'all') {
-                filtered = filtered.filter(l => l.vehicle === this.currentFilter);
-            }
-
-            if (search) {
-                filtered = filtered.filter(l => 
-                    l.pickup.toLowerCase().includes(search) || 
-                    l.drop.toLowerCase().includes(search) || 
-                    l.goods.toLowerCase().includes(search)
-                );
-            }
-
-            if (filtered.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding: 40px; color: #999;">No loads found. Check back later!</div>`;
-                return;
-            }
-
+            const filtered = this.loads.filter(l => l.status === 'pending' && (l.pickup.toLowerCase().includes(search) || l.drop.toLowerCase().includes(search)));
+            if (filtered.length === 0) { container.innerHTML = `<div style="text-align:center; padding: 40px; color: #999;">No active loads.</div>`; return; }
             container.innerHTML = filtered.map(load => {
-                const isMyLoad = load.ownerName === this.user.name;
-                const platformFee = Math.round(load.price * 0.1);
-                const earnings = load.price - platformFee;
-
+                const fee = Math.round(load.price * 0.1); const earns = load.price - fee;
+                const isMine = load.phone === this.user.phone;
                 return `
                     <div class="card load-card">
-                        <div class="load-header">
-                            <span class="badge badge-pending">Searching</span>
-                            <span style="font-size: 0.75rem; color: #999;">Post: ${new Date(load.createdAt).toLocaleDateString()}</span>
-                        </div>
-                        <div class="route-path">
-                            <div class="route-stop pickup">${load.pickup}</div>
-                            <div class="route-stop drop">${load.drop}</div>
-                        </div>
-                        <div class="load-info">
-                            <item><i class="fas fa-box"></i> ${load.goods}</item>
-                            <item><i class="fas fa-truck"></i> ${load.vehicle}</item>
-                        </div>
-                        ${load.driverOffer ? `
-                            <div class="negotiation-pill">
-                                <i class="fas fa-handshake"></i> <b>Driver Offer: ₹${load.driverOffer}</b>
-                                <div style="font-size: 0.7rem; margin-top: 4px;">Original: ₹${load.price}</div>
-                            </div>
-                        ` : ''}
+                        <div class="load-header"><span class="badge badge-pending">Live</span><span style="font-size:0.7rem;color:#999;">${load.ownerName}</span></div>
+                        <div class="route-path"><div class="route-stop pickup">${load.pickup}</div><div class="route-stop drop">${load.drop}</div></div>
+                        <div class="load-info"><item><i class="fas fa-box"></i> ${load.goodsType}</item><item><i class="fas fa-truck"></i> ${load.vehicleType}</item></div>
+                        ${load.driverOffer ? `<div class="negotiation-pill"><b>Offer: ₹${load.driverOffer}</b> (Original: ₹${load.price})</div>` : ''}
                         <div class="price-box">
-                            <div>
-                                <div class="price-main">₹${load.price}</div>
-                                <div class="commission-tag">Platform Fee: ₹${platformFee} (10%)</div>
-                            </div>
-                            <div style="text-align: right">
-                                <div style="font-size: 0.7rem; color: #999;">Driver Earnings</div>
-                                <div style="font-weight: 700; color: var(--accent-green)">₹${earnings}</div>
-                            </div>
+                            <div><div class="price-main">₹${load.price}</div><div class="commission-tag">Fee: ₹${fee}</div></div>
+                            <div style="text-align:right"><div style="font-size:0.7rem;">Earnings</div><div style="font-weight:700;color:var(--accent-green)">₹${earns}</div></div>
                         </div>
-
-                        <div style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                            ${isMyLoad ? `
-                                <button class="btn btn-outline" onclick="app.editModal(${load.id})"><i class="fas fa-edit"></i> Edit</button>
-                                <button class="btn btn-danger" onclick="app.deleteLoad(${load.id})"><i class="fas fa-trash"></i> Delete</button>
-                            ` : `
-                                <button class="btn btn-primary" onclick="app.acceptJob(${load.id})">Accept Job</button>
-                                <button class="btn btn-outline" onclick="app.openNegotiation(${load.id}, ${load.price})">Offer Price</button>
-                            `}
+                        <div style="margin-top:15px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                            ${isMine ? `<button class="btn btn-danger" onclick="app.deleteLoad('${load.id}')">Delete</button><button class="btn btn-outline" disabled>My Post</button>` : 
+                                      `<button class="btn btn-primary" onclick="app.acceptJob('${load.id}')">Accept Job</button><button class="btn btn-outline" onclick="app.openNegotiation('${load.id}', ${load.price})">Negotiate</button>`}
                         </div>
-                    </div>
-                `;
+                    </div>`;
             }).join('');
         },
 
         renderDashboard() {
-            const list = document.getElementById('dashboard-list');
-            const myLoads = this.loads.filter(l => l.ownerPhone === this.user.phone || l.driverPhone === this.user.phone);
-
-            document.getElementById('count-posted').innerText = this.loads.filter(l => l.ownerPhone === this.user.phone).length;
-            document.getElementById('count-active').innerText = this.loads.filter(l => (l.ownerPhone === this.user.phone || l.driverPhone === this.user.phone) && l.status === 'accepted').length;
-
-            if (myLoads.length === 0) {
-                list.innerHTML = `<div style="text-align:center; padding: 40px; color: #999;">Your activity will appear here. Start by posting or accepting a load!</div>`;
-                return;
-            }
-
-            list.innerHTML = myLoads.map(load => {
-                const isOwner = load.ownerPhone === this.user.phone;
-                const roleTag = isOwner ? 'Customer' : 'Driver';
-                const statusColor = load.status === 'accepted' ? 'var(--accent-green)' : (load.status === 'completed' ? 'var(--accent-blue)' : '#f39c12');
-
-                return `
-                    <div class="card" style="border-left: 5px solid ${statusColor}">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                            <span class="badge" style="background: ${statusColor}22; color: ${statusColor}">${load.status}</span>
-                            <span style="font-size: 0.75rem; font-weight: 600; color: #999;">${roleTag} Role</span>
-                        </div>
-                        <div style="font-weight: 600; font-size: 0.95rem; margin-bottom: 15px;">
-                            ${load.pickup} <i class="fas fa-arrow-right" style="color: #ccc; margin: 0 5px;"></i> ${load.drop}
-                        </div>
-                        
-                        ${load.status === 'accepted' ? `
-                            <div style="background: #fdfdfd; border: 1px solid #eee; padding: 12px; border-radius: 10px; margin-bottom: 15px;">
-                                <div style="font-size: 0.8rem; margin-bottom: 8px;"><i class="fas fa-user"></i> Contact ${isOwner ? 'Driver' : 'Customer'}</div>
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                                    <a href="tel:${isOwner ? load.driverPhone : load.ownerPhone}" class="btn btn-outline" style="padding: 6px;"><i class="fas fa-phone"></i> Call</a>
-                                    <a href="https://wa.me/${isOwner ? load.driverPhone : load.ownerPhone}" class="btn btn-whatsapp" style="padding: 6px;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                                </div>
-                            </div>
-                            ${isOwner ? `
-                                <button class="btn btn-primary" onclick="app.completeJob(${load.id})"><i class="fas fa-check-double"></i> Mark as Completed</button>
-                            ` : `<p style="text-align: center; font-size: 0.8rem; color: #666;">Waiting for customer to complete...</p>`}
-                        ` : ''}
-
-                        ${load.status === 'completed' && isOwner ? `
-                           <p style="color: var(--accent-green); font-size: 0.85rem; text-align: center; font-weight: 600;"><i class="fas fa-circle-check"></i> This trip was successful!</p>
-                        ` : ''}
-                    </div>
-                `;
-            }).join('');
+            const custTab = document.getElementById('customer-dashboard-list');
+            const drivTab = document.getElementById('driver-dashboard-list');
+            const myPosted = this.loads.filter(l => l.phone === this.user.phone);
+            const myJobs = this.loads.filter(l => l.driverPhone === this.user.phone && l.status === 'accepted');
+            custTab.innerHTML = myPosted.length ? myPosted.map(l => this.renderDashboardCard(l, true)).join('') : '<p style="color:#999;font-size:0.8rem;">No loads posted.</p>';
+            drivTab.innerHTML = myJobs.length ? myJobs.map(l => this.renderDashboardCard(l, false)).join('') : '<p style="color:#999;font-size:0.8rem;">No jobs accepted.</p>';
         },
 
-        activeNegotiationId: null,
-
-        openNegotiation(id, currentPrice) {
-            this.activeNegotiationId = id;
-            document.getElementById('modal-current-price').innerText = '₹' + currentPrice;
-            document.getElementById('negotiate-overlay').style.display = 'flex';
+        renderDashboardCard(load, isOwner) {
+            const statusColor = load.status === 'accepted' ? 'var(--accent-green)' : (load.status === 'completed' ? 'var(--accent-blue)' : '#f39c12');
+            const otherParty = isOwner ? (load.driverName || 'No driver yet') : load.ownerName;
+            const otherPhone = isOwner ? load.driverPhone : load.phone;
+            return `<div class="card" style="border-left:5px solid ${statusColor}"><div style="display:flex;justify-content:space-between;margin-bottom:10px;"><span class="badge" style="background:${statusColor}22;color:${statusColor}">${load.status}</span><span style="font-size:0.7rem;color:#999;">${load.pickup} ➔ ${load.drop}</span></div>
+                    ${load.status === 'accepted' ? `<div style="margin-bottom:15px;font-size:0.85rem;"><p><b>Contact ${isOwner ? 'Driver' : 'Customer'}:</b> ${otherParty}</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+                        <a href="tel:${otherPhone}" class="btn btn-outline" style="padding:6px;"><i class="fas fa-phone"></i> Call</a>
+                        <a href="https://wa.me/${otherPhone}" class="btn btn-whatsapp" style="padding:6px;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    </div></div>${isOwner ? `<button class="btn btn-primary" onclick="app.updateStatus('${load.id}', 'completed')">Mark Completed</button>` : ''}` : 
+                    (isOwner && load.status === 'pending' ? `<button class="btn btn-danger" onclick="app.deleteLoad('${load.id}')">Delete Post</button>` : '')}</div>`;
         },
 
-        closeNegotiation() {
-            document.getElementById('negotiate-overlay').style.display = 'none';
-            this.activeNegotiationId = null;
-        },
-
-        submitNegotiation() {
-            const bid = parseFloat(document.getElementById('negotiation-bid').value);
-            if (!bid) return;
-
-            const load = this.loads.find(l => l.id === this.activeNegotiationId);
-            if (load) {
-                load.driverOffer = bid;
-                this.saveData();
-                this.closeNegotiation();
-                alert("Offer sent to customer! Check Dashboard for updates.");
-                this.renderLoadsList();
-            }
-        },
-
-        acceptJob(id) {
-            const load = this.loads.find(l => l.id === id);
-            if (load) {
-                load.status = 'accepted';
-                load.driverName = this.user.name;
-                load.driverPhone = this.user.phone;
-                this.saveData();
-                alert("Job Accepted! You can now contact the customer.");
-                this.showPage('dashboard');
-            }
-        },
-
-        completeJob(id) {
-            const load = this.loads.find(l => l.id === id);
-            if (load) {
-                load.status = 'completed';
-                this.saveData();
-                alert("Trip marked as completed!");
-                this.renderDashboard();
-            }
-        },
-
-        deleteLoad(id) {
-            if (confirm("Are you sure you want to delete this load?")) {
-                this.loads = this.loads.filter(l => l.id !== id);
-                this.saveData();
-                this.renderLoadsList();
-            }
-        },
-
-        editModal(id) {
-            const load = this.loads.find(l => l.id === id);
-            if (load) {
-                this.editingId = id;
-                document.getElementById('edit-price').value = load.price;
-                document.getElementById('edit-overlay').style.display = 'flex';
-            }
-        },
-
-        saveEdit() {
-            const newPrice = parseFloat(document.getElementById('edit-price').value);
-            const load = this.loads.find(l => l.id === this.editingId);
-            if (load && newPrice) {
-                load.price = newPrice;
-                this.saveData();
-                document.getElementById('edit-overlay').style.display = 'none';
-                this.renderLoadsList();
-            }
-        },
-
-        logout() {
-            if (confirm("Logout of LoadLink?")) {
-                localStorage.removeItem('loadlink_user_v2');
-                location.reload();
-            }
-        }
+        async acceptJob(id) { try { await updateDoc(doc(db, "loads", id), { status: 'accepted', driverName: this.user.name, driverPhone: this.user.phone }); alert("Job Accepted!"); this.showPage('dashboard'); } catch (e) { alert("Error."); } },
+        openNegotiation(id, price) { this.activeNegotiationId = id; document.getElementById('modal-current-price').innerText = '₹' + price; document.getElementById('negotiate-overlay').style.display = 'flex'; },
+        closeNegotiation() { document.getElementById('negotiate-overlay').style.display = 'none'; },
+        async submitNegotiation() { const bid = parseFloat(document.getElementById('negotiation-bid').value); if (!bid) return; try { await updateDoc(doc(db, "loads", this.activeNegotiationId), { driverOffer: bid }); this.closeNegotiation(); alert("Offer sent!"); } catch (e) { alert("Error."); } },
+        async updateStatus(id, status) { try { await updateDoc(doc(db, "loads", id), { status }); } catch (e) { alert("Error."); } },
+        async deleteLoad(id) { if (!confirm("Delete this?")) return; try { await deleteDoc(doc(db, "loads", id)); } catch (e) { alert("Error."); } },
+        logout() { if (confirm("Logout?")) { localStorage.removeItem('loadlink_user_v2'); location.reload(); } }
     };
 
     window.onload = () => app.init();
 </script>
-
 </body>
 </html>
