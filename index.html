@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LoadLink India | Smart Goods Transport</title>
+    <meta name="description" content="Connect with drivers and load owners across India. Instant pricing and easy negotiation.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #FFD700; /* Amber Yellow */
+            --primary-dark: #ccac00;
+            --secondary: #1a1a1a; /* Sleek Black */
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --text-main: #212529;
+            --text-muted: #6c757d;
+            --accent-green: #2ecc71;
+            --accent-blue: #3498db;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* --- UI Components --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            gap: 10px;
+            text-decoration: none;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--secondary);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-bottom: 80px; /* Space for bottom nav if needed */
+        }
+
+        /* --- Header --- */
+        header {
+            padding: 20px;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        header .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        header .logo i {
+            color: var(--primary);
+        }
+
+        /* --- Views --- */
+        .view {
+            display: none;
+            padding: 20px;
+            animation: slideIn 0.4s ease-out;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Home View --- */
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .role-selection {
+            display: grid;
+            gap: 20px;
+        }
+
+        .role-card {
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .role-card:active {
+            transform: scale(0.95);
+            background: var(--primary);
+        }
+
+        .role-card i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .role-card.driver-role i {
+            color: var(--secondary);
+        }
+
+        /* --- Form Elements --- */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1.5px solid #eee;
+            background: #fdfdfd;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.1);
+        }
+
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .vehicle-option {
+            padding: 15px 10px;
+            border: 1.5px solid #eee;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .vehicle-option.selected {
+            border-color: var(--primary);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .vehicle-option i {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .vehicle-option span {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* --- List Cards --- */
+        .load-card {
+            border-left: 5px solid var(--primary);
+        }
+
+        .load-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-pending { background: #fff3cd; color: #856404; }
+        .badge-accepted { background: #d4edda; color: #155724; }
+        .badge-negotiating { background: #cce5ff; color: #004085; }
+
+        .route-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .route-point {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .route-point i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .price-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .price-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .commission-pill {
+            background: #f1f3f5;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: #495057;
+        }
+
+        /* --- Modals/Overlays --- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            position: relative;
+        }
+
+        .modal h3 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* --- Upcoming Features --- */
+        .upcoming-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: var(--secondary);
+            color: var(--white);
+            border-radius: 20px;
+        }
+
+        .upcoming-section h4 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .upcoming-list {
+            list-style: none;
+        }
+
+        .upcoming-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* --- Footer Nav --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            max-width: 500px;
+            margin: 0 auto;
+            z-index: 100;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .nav-item.active {
+            color: var(--primary-dark);
+        }
+
+        .nav-item i {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        /* --- Verified Badge --- */
+        .verified {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--accent-blue);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        /* Pricing Summary Overlay */
+        .price-summary {
+            background: #fff9db;
+            border: 1px solid var(--primary);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .price-row.total {
+            border-top: 1px solid rgba(0,0,0,0.1);
+            margin-top: 10px;
+            padding-top: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo" onclick="app.showHome()">
+            <i class="fas fa-truck-moving"></i>
+            <span>LoadLink India</span>
+        </div>
+        <div id="user-context" style="font-size: 0.8rem; font-weight: 600;"></div>
+    </header>
+
+    <!-- HOME VIEW -->
+    <section id="home-view" class="view active">
+        <div class="hero">
+            <h1>India's Smartest<br><span style="color: var(--primary-dark)">Trucking Network</span></h1>
+            <p>Connect. Negotiate. Deliver.</p>
+        </div>
+
+        <div class="role-selection">
+            <div class="card role-card" onclick="app.login('customer')">
+                <i class="fas fa-box-open"></i>
+                <h3>I Have a Load</h3>
+                <p>Post goods to transport</p>
+                <button class="btn btn-primary" style="margin-top: 15px;">Book a Load</button>
+            </div>
+            
+            <div class="card role-card driver-role" onclick="app.login('driver')">
+                <i class="fas fa-shuttle-van"></i>
+                <h3>I am a Driver</h3>
+                <p>Find loads and earn money</p>
+                <button class="btn btn-secondary" style="margin-top: 15px;">Find Loads</button>
+            </div>
+        </div>
+
+        <div class="upcoming-section">
+            <h4><i class="fas fa-star"></i> Upcoming Features</h4>
+            <ul class="upcoming-list">
+                <li><i class="fas fa-map-marker-alt"></i> Live GPS Tracking</li>
+                <li><i class="fas fa-shield-alt"></i> Driver KYC Verification</li>
+                <li><i class="fas fa-wallet"></i> Instant Online Payments</li>
+                <li><i class="fas fa-headset"></i> 24/7 Premium Support</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- CUSTOMER: POST LOAD VIEW -->
+    <section id="customer-post-view" class="view">
+        <h2 style="margin-bottom: 20px;">Post Your Load</h2>
+        
+        <div class="card">
+            <div class="form-group">
+                <label>Pickup Location</label>
+                <input type="text" id="pickup" class="form-control" placeholder="Village or City Name">
+            </div>
+            <div class="form-group">
+                <label>Drop Location</label>
+                <input type="text" id="drop" class="form-control" placeholder="Destination Village or City">
+            </div>
+            <div class="form-group">
+                <label>Goods Type</label>
+                <select id="goods-type" class="form-control">
+                    <option value="Furniture">Furniture</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Groceries">Groceries</option>
+                    <option value="Construction Material">Construction</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Vehicle Type</label>
+                <div class="vehicle-grid">
+                    <div class="vehicle-option" onclick="app.selectVehicle(this, 'Bike', 30, 8)">
+                        <i class="fas fa-motorcycle"></i>
+                        <span>Bike</span>
+                    </div>
+                    <div class="vehicle-option" onclick="app.selectVehicle(this, 'Mini Truck', 100, 15)">
+                        <i class="fas fa-truck-pickup"></i>
+                        <span>Tata Ace</span>
+                    </div>
+                    <div class="vehicle-option" onclick="app.selectVehicle(this, 'Pickup', 150, 20)">
+                        <i class="fas fa-truck"></i>
+                        <span>Pickup</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Distance (Estimated km)</label>
+                <input type="number" id="distance" class="form-control" placeholder="Enter km (e.g. 10)" oninput="app.calculatePrice()">
+            </div>
+
+            <div id="price-preview" style="display: none;">
+                <div class="price-summary">
+                    <div class="price-row">
+                        <span>Base Fare:</span>
+                        <span id="preview-base">₹0</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Distance Charge:</span>
+                        <span id="preview-dist">₹0</span>
+                    </div>
+                    <div class="price-row total">
+                        <span>Total Estimated Price:</span>
+                        <span id="preview-total">₹0</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Or suggest your own price (Negotiation)</label>
+                    <input type="number" id="custom-price" class="form-control" placeholder="Enter your bid (optional)">
+                </div>
+                
+                <button class="btn btn-primary" onclick="app.postLoad()">Post Load Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CUSTOMER: DASHBOARD VIEW -->
+    <section id="customer-dashboard-view" class="view">
+        <h2 style="margin-bottom: 20px;">My Posted Loads</h2>
+        <div id="customer-loads-list">
+            <!-- Loads injected here -->
+        </div>
+    </section>
+
+    <!-- DRIVER: AVAILABLE LOADS VIEW -->
+    <section id="driver-loads-view" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2>Available Loads</h2>
+            <div class="verified"><i class="fas fa-check-circle"></i> Verified Driver</div>
+        </div>
+        <div id="driver-available-list">
+            <!-- Available loads injected here -->
+        </div>
+    </section>
+
+    <!-- DRIVER: MY JOBS VIEW -->
+    <section id="driver-jobs-view" class="view">
+        <h2 style="margin-bottom: 20px;">My Accepted Jobs</h2>
+        <div id="driver-accepted-list">
+            <!-- Accepted jobs injected here -->
+        </div>
+    </section>
+
+    <!-- BOTTOM NAVIGATION (Hidden initially) -->
+    <nav class="bottom-nav" id="customer-nav" style="display: none;">
+        <div class="nav-item active" onclick="app.showCustomerPost()">
+            <i class="fas fa-plus-circle"></i>
+            Post Load
+        </div>
+        <div class="nav-item" onclick="app.showCustomerDashboard()">
+            <i class="fas fa-list"></i>
+            My Loads
+        </div>
+        <div class="nav-item" onclick="app.logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+        </div>
+    </nav>
+
+    <nav class="bottom-nav" id="driver-nav" style="display: none;">
+        <div class="nav-item active" onclick="app.showDriverAvailable()">
+            <i class="fas fa-search"></i>
+            Find Loads
+        </div>
+        <div class="nav-item" onclick="app.showDriverJobs()">
+            <i class="fas fa-briefcase"></i>
+            My Jobs
+        </div>
+        <div class="nav-item" onclick="app.logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+        </div>
+    </nav>
+</div>
+
+<!-- NEGOTIATE MODAL -->
+<div class="overlay" id="negotiate-overlay">
+    <div class="modal">
+        <h3 id="modal-title">Negotiate Price</h3>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">
+            Current Price: <span id="modal-current-price" style="font-weight: 700; color: var(--secondary);"></span>
+        </p>
+        <div class="form-group">
+            <label>Your Counter Price (₹)</label>
+            <input type="number" id="negotiation-bid" class="form-control" placeholder="Enter bid amount">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <button class="btn btn-outline" onclick="app.closeNegotiation()">Cancel</button>
+            <button class="btn btn-secondary" onclick="app.submitNegotiation()">Offer Price</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const app = {
+        currentUser: null,
+        selectedVehicle: null,
+        currentLoads: JSON.parse(localStorage.getItem('loadlink_loads') || '[]'),
+        
+        init() {
+            console.log("LoadLink India Initialized");
+            // Check for existing session
+            const session = localStorage.getItem('loadlink_user');
+            if (session) {
+                this.login(session);
+            }
+        },
+
+        login(role) {
+            this.currentUser = role;
+            localStorage.setItem('loadlink_user', role);
+            document.getElementById('user-context').innerText = role === 'customer' ? 'MEMBER' : 'DRIVER';
+            
+            if (role === 'customer') {
+                document.getElementById('customer-nav').style.display = 'flex';
+                document.getElementById('driver-nav').style.display = 'none';
+                this.showCustomerPost();
+            } else {
+                document.getElementById('driver-nav').style.display = 'flex';
+                document.getElementById('customer-nav').style.display = 'none';
+                this.showDriverAvailable();
+            }
+        },
+
+        logout() {
+            localStorage.removeItem('loadlink_user');
+            this.currentUser = null;
+            location.reload();
+        },
+
+        showHome() {
+            this.hideAllViews();
+            document.getElementById('home-view').classList.add('active');
+            document.getElementById('customer-nav').style.display = 'none';
+            document.getElementById('driver-nav').style.display = 'none';
+        },
+
+        hideAllViews() {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(v => v.classList.remove('active'));
+        },
+
+        showCustomerPost() {
+            this.hideAllViews();
+            document.getElementById('customer-post-view').classList.add('active');
+            this.updateNav(0, 'customer-nav');
+        },
+
+        showCustomerDashboard() {
+            this.hideAllViews();
+            document.getElementById('customer-dashboard-view').classList.add('active');
+            this.updateNav(1, 'customer-nav');
+            this.renderCustomerLoads();
+        },
+
+        showDriverAvailable() {
+            this.hideAllViews();
+            document.getElementById('driver-loads-view').classList.add('active');
+            this.updateNav(0, 'driver-nav');
+            this.renderDriverAvailable();
+        },
+
+        showDriverJobs() {
+            this.hideAllViews();
+            document.getElementById('driver-jobs-view').classList.add('active');
+            this.updateNav(1, 'driver-nav');
+            this.renderDriverJobs();
+        },
+
+        updateNav(index, navId) {
+            const items = document.querySelectorAll(`#${navId} .nav-item`);
+            items.forEach((item, i) => {
+                if (i === index) item.classList.add('active');
+                else item.classList.remove('active');
+            });
+        },
+
+        selectVehicle(el, name, base, rate) {
+            document.querySelectorAll('.vehicle-option').forEach(v => v.classList.remove('selected'));
+            el.classList.add('selected');
+            this.selectedVehicle = { name, base, rate };
+            this.calculatePrice();
+        },
+
+        calculatePrice() {
+            if (!this.selectedVehicle) return;
+            const dist = parseFloat(document.getElementById('distance').value) || 0;
+            if (dist > 0) {
+                const total = this.selectedVehicle.base + (dist * this.selectedVehicle.rate);
+                document.getElementById('price-preview').style.display = 'block';
+                document.getElementById('preview-base').innerText = '₹' + this.selectedVehicle.base;
+                document.getElementById('preview-dist').innerText = '₹' + (dist * this.selectedVehicle.rate);
+                document.getElementById('preview-total').innerText = '₹' + total;
+                // Auto-fill custom price if empty
+                if (!document.getElementById('custom-price').value) {
+                    // Just a hint
+                }
+            } else {
+                document.getElementById('price-preview').style.display = 'none';
+            }
+        },
+
+        postLoad() {
+            const pickup = document.getElementById('pickup').value;
+            const drop = document.getElementById('drop').value;
+            const goods = document.getElementById('goods-type').value;
+            const dist = parseFloat(document.getElementById('distance').value);
+            const customPrice = parseFloat(document.getElementById('custom-price').value);
+            
+            if (!pickup || !drop || !dist) {
+                alert("Please fill all details!");
+                return;
+            }
+
+            const autoPrice = this.selectedVehicle.base + (dist * this.selectedVehicle.rate);
+            const finalPrice = customPrice || autoPrice;
+
+            const newLoad = {
+                id: Date.now(),
+                pickup,
+                drop,
+                goods,
+                vehicle: this.selectedVehicle.name,
+                distance: dist,
+                price: finalPrice,
+                status: 'pending', // pending, accepted, negotiating
+                negotiatedPrice: null,
+                driverId: null,
+                postedAt: new Date().toISOString()
+            };
+
+            this.currentLoads.unshift(newLoad);
+            this.saveLoads();
+            
+            this.showCustomerDashboard();
+            
+            // Success animation/feedback (simple for now)
+            alert("Load posted successfully!");
+            
+            // Clear form
+            document.getElementById('pickup').value = '';
+            document.getElementById('drop').value = '';
+            document.getElementById('distance').value = '';
+            document.getElementById('custom-price').value = '';
+            this.selectedVehicle = null;
+            document.querySelectorAll('.vehicle-option').forEach(v => v.classList.remove('selected'));
+            document.getElementById('price-preview').style.display = 'none';
+        },
+
+        saveLoads() {
+            localStorage.setItem('loadlink_loads', JSON.stringify(this.currentLoads));
+        },
+
+        renderCustomerLoads() {
+            const list = document.getElementById('customer-loads-list');
+            if (this.currentLoads.length === 0) {
+                list.innerHTML = '<div style="text-align:center; padding: 40px; color: #999;">No loads posted yet. Start with a "Post Load".</div>';
+                return;
+            }
+
+            list.innerHTML = this.currentLoads.map(load => {
+                const commission = Math.round(load.price * 0.1);
+                const driverEarnings = load.price - commission;
+                
+                return `
+                    <div class="card load-card">
+                        <div class="load-meta">
+                            <span class="badge badge-${load.status}">${load.status}</span>
+                            <span style="font-size: 0.8rem; color: #999;">${new Date(load.postedAt).toLocaleDateString()}</span>
+                        </div>
+                        <div class="route-info">
+                            <div class="route-point"><i class="fas fa-map-marker-alt" style="color: #e74c3c;"></i> ${load.pickup}</div>
+                            <div class="route-point"><i class="fas fa-location-arrow" style="color: #2ecc71;"></i> ${load.drop}</div>
+                        </div>
+                        <div style="font-size: 0.9rem; margin-bottom: 15px;">
+                            <i class="fas fa-box" style="margin-right: 5px;"></i> ${load.goods} • <i class="fas fa-shuttle-van" style="margin-left: 10px; margin-right: 5px;"></i> ${load.vehicle}
+                        </div>
+                        <div class="price-section">
+                            <div>
+                                <div class="price-value">₹${load.price}</div>
+                                <div class="commission-pill">Platform Fee: ₹${commission} (10%)</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 0.7rem; color: #999;">Deducted Earnings</div>
+                                <div style="font-weight: 600; font-size: 0.9rem;">₹${driverEarnings}</div>
+                            </div>
+                        </div>
+                        ${load.status === 'negotiating' ? `
+                            <div style="margin-top: 15px; padding: 10px; background: #e3f2fd; border-radius: 8px; font-size: 0.9rem;">
+                                <strong>Driver counter-offer: ₹${load.negotiatedPrice}</strong>
+                                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                    <button class="btn btn-primary" style="padding: 10px;" onclick="app.approveNegotiation(${load.id})">Accept Offer</button>
+                                    <button class="btn btn-outline" style="padding: 10px;" onclick="app.rejectNegotiation(${load.id})">Decline</button>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${load.status === 'accepted' ? `
+                            <div style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <a href="tel:+919876543210" class="btn btn-outline" style="padding: 8px;"><i class="fas fa-phone"></i> Call Driver</a>
+                                <a href="https://wa.me/919876543210" class="btn btn-secondary" style="padding: 8px; background: #25D366; border: none;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        },
+
+        renderDriverAvailable() {
+            const list = document.getElementById('driver-available-list');
+            const available = this.currentLoads.filter(l => l.status === 'pending' || l.status === 'negotiating');
+            
+            if (available.length === 0) {
+                list.innerHTML = '<div style="text-align:center; padding: 40px; color: #999;">Searching for new loads in your area... <br><br> (Check back soon)</div>';
+                return;
+            }
+
+            list.innerHTML = available.map(load => {
+                const commission = Math.round(load.price * 0.1);
+                const earnings = load.price - commission;
+
+                return `
+                    <div class="card load-card">
+                        <div class="route-info">
+                            <div class="route-point"><i class="fas fa-map-marker-alt" style="color: #e74c3c;"></i> ${load.pickup}</div>
+                            <div class="route-point"><i class="fas fa-location-arrow" style="color: #2ecc71;"></i> ${load.drop}</div>
+                        </div>
+                        <div style="font-size: 0.9rem; margin-bottom: 15px;">
+                            <i class="fas fa-box" style="margin-right: 5px;"></i> ${load.goods} • <i class="fas fa-road" style="margin-left: 10px; margin-right: 5px;"></i> ${load.distance} km
+                        </div>
+                        <div class="price-section">
+                            <div>
+                                <div class="price-value">Earnings: ₹${earnings}</div>
+                                <div class="commission-pill">After 10% Fee (${load.price} Load)</div>
+                            </div>
+                            <i class="fas fa-info-circle" style="color: #ddd;"></i>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+                            <button class="btn btn-primary" onclick="app.acceptLoad(${load.id})">Accept Job</button>
+                            <button class="btn btn-outline" onclick="app.openNegotiation(${load.id}, ${load.price})">Negotiate</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        },
+
+        renderDriverJobs() {
+            const list = document.getElementById('driver-accepted-list');
+            const jobs = this.currentLoads.filter(l => l.status === 'accepted');
+            
+            if (jobs.length === 0) {
+                list.innerHTML = '<div style="text-align:center; padding: 40px; color: #999;">No active jobs. Accept a job from the "Find Loads" tab.</div>';
+                return;
+            }
+
+            list.innerHTML = jobs.map(load => {
+                return `
+                    <div class="card load-card" style="border-left-color: var(--accent-green);">
+                        <div class="load-meta">
+                            <span class="badge badge-accepted">Active Job</span>
+                            <span class="verified"><i class="fas fa-shield-alt"></i> Secured</span>
+                        </div>
+                        <div class="route-info">
+                            <div class="route-point"><i class="fas fa-map-marker-alt" style="color: #e74c3c;"></i> ${load.pickup}</div>
+                            <div class="route-point"><i class="fas fa-location-arrow" style="color: #2ecc71;"></i> ${load.drop}</div>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <button class="btn btn-primary" onclick="alert('Trip Started! Sharing live locations...')">Start Trip</button>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                                <a href="tel:+919999999999" class="btn btn-outline" style="padding: 8px;"><i class="fas fa-phone"></i> Call Customer</a>
+                                <a href="https://wa.me/91999999999" class="btn btn-secondary" style="padding: 8px; background: #25D366; border: none;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        },
+
+        acceptLoad(id) {
+            const load = this.currentLoads.find(l => l.id === id);
+            if (load) {
+                load.status = 'accepted';
+                this.saveLoads();
+                alert("Job accepted! Contact the customer to coordinate.");
+                this.showDriverJobs();
+            }
+        },
+
+        // Negotiation Logic
+        activeNegotiationId: null,
+
+        openNegotiation(id, currentPrice) {
+            this.activeNegotiationId = id;
+            document.getElementById('modal-current-price').innerText = '₹' + currentPrice;
+            document.getElementById('negotiate-overlay').style.display = 'flex';
+        },
+
+        closeNegotiation() {
+            document.getElementById('negotiate-overlay').style.display = 'none';
+            this.activeNegotiationId = null;
+        },
+
+        submitNegotiation() {
+            const bid = parseFloat(document.getElementById('negotiation-bid').value);
+            if (!bid) return;
+
+            const load = this.currentLoads.find(l => l.id === this.activeNegotiationId);
+            if (load) {
+                load.status = 'negotiating';
+                load.negotiatedPrice = bid;
+                this.saveLoads();
+                this.closeNegotiation();
+                alert("Your offer has been sent to the customer!");
+                this.renderDriverAvailable();
+            }
+        },
+
+        approveNegotiation(id) {
+            const load = this.currentLoads.find(l => l.id === id);
+            if (load) {
+                load.price = load.negotiatedPrice;
+                load.status = 'accepted';
+                load.negotiatedPrice = null;
+                this.saveLoads();
+                alert("Offer accepted! Driver has been notified.");
+                this.renderCustomerLoads();
+            }
+        },
+
+        rejectNegotiation(id) {
+            const load = this.currentLoads.find(l => l.id === id);
+            if (load) {
+                load.status = 'pending';
+                load.negotiatedPrice = null;
+                this.saveLoads();
+                alert("Offer declined. Load is back to original price.");
+                this.renderCustomerLoads();
+            }
+        }
+    };
+
+    // Initialize the app
+    window.onload = () => app.init();
+</script>
+
+</body>
+</html>
